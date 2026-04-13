@@ -17,8 +17,8 @@
       --green-pale: #e8f0dc;
       --sand: #f5f0e8;
       --sand-dark: #e6ddd0;
-      --terracotta: #c4673a;
-      --terracotta-light: #e8956a;
+      --red: #f51409;
+      --red-light: #f63f36;
       --brown: #5c3d2e;
       --brown-light: #8b6b54;
       --cream: #faf8f4;
@@ -92,14 +92,13 @@
     }
 
     .hero__logo-icon {
-      width: 56px;
-      height: 56px;
       background: var(--white);
-      border-radius: 50%;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 28px;
+      padding: 5px 12px;
     }
 
     .hero__logo-text {
@@ -126,7 +125,7 @@
 
     .hero__headline em {
       font-style: normal;
-      color: var(--terracotta-light);
+      color: var(--red-light);
     }
 
     .hero__subtext {
@@ -148,7 +147,7 @@
     .stat__number {
       font-family: 'DM Serif Display', serif;
       font-size: 2rem;
-      color: var(--terracotta-light);
+      color: var(--red-light);
     }
 
     .stat__label {
@@ -247,7 +246,7 @@
     }
 
     .status-card__title--cancel {
-      color: var(--terracotta);
+      color: var(--red);
     }
 
     .status-card__text {
@@ -281,12 +280,12 @@
     }
 
     .status-card__btn--cancel {
-      background: var(--terracotta);
+      background: var(--red);
       color: var(--white);
     }
 
     .status-card__btn--cancel:hover {
-      background: var(--terracotta-light);
+      background: var(--red-light);
     }
 
     /* Program selector */
@@ -344,7 +343,7 @@
     /* Amount grid */
     .amount-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       margin-bottom: 12px;
     }
@@ -363,13 +362,13 @@
     }
 
     .amount-btn:hover {
-      border-color: var(--terracotta);
+      border-color: var(--red);
       background: #fdf6f2;
     }
 
     .amount-btn.active {
-      border-color: var(--terracotta);
-      background: var(--terracotta);
+      border-color: var(--red);
+      background: var(--red);
       color: var(--white);
     }
 
@@ -494,7 +493,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: var(--terracotta);
+      color: var(--red);
       margin-bottom: 16px;
     }
 
@@ -509,7 +508,7 @@
       font-size: 1.05rem;
       font-weight: 300;
       color: var(--text-secondary);
-      max-width: 560px;
+      max-width: 400px;
       margin: 0 auto;
     }
 
@@ -593,7 +592,7 @@
 
       <div class="hero__text">
         <div class="hero__logo">
-          <div class="hero__logo-icon">🌿</div>
+          <div class="hero__logo-icon"><img src="logo_color.png"></div>
           <div>
             <div class="hero__logo-text">CEDAIN</div>
             <span class="hero__logo-sub">Centro de Desarrollo Alternativo Indígena, A.C.</span>
@@ -671,12 +670,12 @@
         <!-- CTA -->
         <button class="donate-cta" onclick="handleDonate()">Completar Donación →</button>
 
-        <label class="tax-note">
-          <input type="checkbox" id="taxReceipt" /> Deseo recibir recibo deducible de impuestos
-        </label>
+        <div class="secure-note">
+          🔒 Pago seguro procesado por Stripe.
+        </div>
 
         <div class="secure-note">
-          🔒 Pago seguro procesado por Stripe
+          Instrucciones para obtener recibo deducible se enviarán por correo después del pago.
         </div>
       </div>
     </div>
