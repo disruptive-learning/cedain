@@ -791,7 +791,7 @@
     }
 
     // ── Donate handler → n8n webhook ──
-    const WEBHOOK_URL = 'https://n8n.gigstack.pro/webhook/cedain-donativo';
+    const WEBHOOK_URL = 'https://n8n.gigstack.pro/webhook-test/cedain-donativo';
 
     async function handleDonate() {
       const amount = state.customAmount || state.amount;
@@ -824,8 +824,7 @@
         first_name: fname,
         last_name: lname,
         email: email,
-        phone: document.getElementById('phone').value.trim(),
-        tax_receipt: document.getElementById('taxReceipt').checked
+        phone: document.getElementById('phone').value.trim()
       };
 
       try {
