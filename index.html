@@ -22,7 +22,7 @@
       --brown: #5c3d2e;
       --brown-light: #8b6b54;
       --cream: #faf8f4;
-      --white: #ffffff;
+      --white: #f7f7f7;
       --text-primary: #2c2418;
       --text-secondary: #6b5e4f;
       --text-light: #9a8d7e;
@@ -301,57 +301,6 @@
     .status-card__btn--cancel { background: var(--red); color: var(--white); }
     .status-card__btn--cancel:hover { background: var(--red-light); }
 
-    /* Program selector */
-    .program-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-
-    .program-btn {
-      position: relative;
-      padding: 14px 14px;
-      border: 1.5px solid var(--sand-dark);
-      border-radius: var(--radius-md);
-      background: var(--white);
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: .82rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all .25s ease;
-      text-align: left;
-      line-height: 1.35;
-    }
-
-    .program-btn .program-icon {
-      display: block;
-      font-size: 1.2rem;
-      margin-bottom: 6px;
-    }
-
-    .program-btn:hover {
-      border-color: var(--green-light);
-      background: var(--green-pale);
-    }
-
-    .program-btn.active {
-      border-color: var(--green-mid);
-      background: var(--green-pale);
-      color: var(--green-dark);
-      font-weight: 600;
-    }
-
-    .program-btn.active::after {
-      content: '✓';
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      font-size: .7rem;
-      color: var(--green-mid);
-      font-weight: 700;
-    }
 
     /* Amount grid */
     .amount-grid {
@@ -442,36 +391,7 @@
     .form-field input::placeholder { color: var(--text-light); }
     .form-field input:focus { border-color: var(--green-mid); }
 
-    /* Receipt checkbox */
-    .receipt-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      background: var(--green-pale);
-      border: 1.5px solid var(--green-light);
-      border-radius: var(--radius-md);
-      margin-top: 10px;
-      cursor: pointer;
-      transition: background .2s;
-    }
 
-    .receipt-row:hover { background: #d4e6bc; }
-
-    .receipt-row input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--green-dark);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .receipt-row span {
-      font-size: .88rem;
-      font-weight: 600;
-      color: var(--green-dark);
-      cursor: pointer;
-    }
 
     /* CTA */
     .donate-cta {
@@ -613,7 +533,6 @@
 
     @media (max-width: 480px) {
       .amount-grid { grid-template-columns: 1fr 1fr; }
-      .program-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .freq-row { flex-direction: column; }
     }
@@ -670,23 +589,6 @@
           <button class="freq-btn" data-freq="once" onclick="setFreq(this)">Donación Única</button>
         </div>
 
-        <!-- Program -->
-        <div class="section-label">Destina tu donativo</div>
-        <div class="program-grid">
-          <button class="program-btn" data-program="solidaria" onclick="setProgram(this)">
-            <span class="program-icon">🤝</span>Economía Solidaria
-          </button>
-          <button class="program-btn" data-program="alimentaria" onclick="setProgram(this)">
-            <span class="program-icon">🌽</span>Soberanía Alimentaria
-          </button>
-          <button class="program-btn" data-program="medioambiente" onclick="setProgram(this)">
-            <span class="program-icon">🌲</span>Medio Ambiente y&nbsp;Territorio
-          </button>
-          <button class="program-btn active" data-program="global" onclick="setProgram(this)">
-            <span class="program-icon">💚</span>Programa Global
-          </button>
-        </div>
-
         <!-- Amount -->
         <div class="section-label">Monto a donar (MXN)</div>
         <div class="amount-grid">
@@ -710,17 +612,15 @@
           <div class="form-field"><input type="tel" id="phone" placeholder="Teléfono (opcional)" /></div>
         </div>
 
-        <!-- Receipt -->
-        <label class="receipt-row">
-          <input type="checkbox" id="needReceipt" />
-          <span>Requiero recibo de donativo</span>
-        </label>
-
         <!-- CTA -->
         <button class="donate-cta" onclick="handleDonate()">Completar Donación →</button>
 
         <div class="secure-note">
           🔒 Pago seguro procesado por Stripe.
+        </div>
+
+        <div class="secure-note">
+          Instrucciones para obtener recibo deducible se enviarán por correo después del pago.
         </div>
       </div>
     </div>
@@ -810,7 +710,6 @@
     // ── State ──
     let state = {
       frequency: 'monthly',
-      program: 'global',
       amount: 500,
       customAmount: null
     };
@@ -822,12 +721,6 @@
       state.frequency = btn.dataset.freq;
     }
 
-    // ── Program selector ──
-    function setProgram(btn) {
-      document.querySelectorAll('.program-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      state.program = btn.dataset.program;
-    }
 
     // ── Amount buttons ──
     function setAmount(btn) {
@@ -876,13 +769,11 @@
         amount: amount,
         currency: 'mxn',
         frequency: state.frequency,
-        program: state.program,
         name: fname + (lname ? ' ' + lname : ''),
         first_name: fname,
         last_name: lname,
         email: email,
-        phone: document.getElementById('phone').value.trim(),
-        needs_receipt: document.getElementById('needReceipt').checked
+        phone: document.getElementById('phone').value.trim()
       };
 
       try {
